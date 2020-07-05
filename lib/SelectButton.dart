@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
+//import 'package:recommend/csv.dart';
+//import 'csv.dart';
 
 class SelectButton extends StatelessWidget {
   SelectButton(
       {@required this.category,
       @required this.emoticon,
       @required this.backgroundColor,
-      @required this.textColor});
+      @required this.textColor,
+      @required this.screen});
   final String category;
   final String emoticon;
   final Color backgroundColor;
   final Color textColor;
+  final String screen;
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +45,7 @@ class SelectButton extends StatelessWidget {
         ),
       ),
       onPressed: () {
-        print('Pressed');
+        Navigator.pushNamed(context, screen);
       },
     );
   }

@@ -1,9 +1,28 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'constants.dart';
-import 'package:recommend/SelectButton.dart';
+import 'package:recommend/screens/books_screen.dart';
+import 'package:recommend/screens/games_screen.dart';
+import 'package:recommend/screens/movie_screen.dart';
+import 'package:recommend/screens/tvShows_screen.dart';
 
-class SelectionScreen extends StatelessWidget {
+import '../constants.dart';
+import 'package:recommend/SelectButton.dart';
+import 'package:flutter/services.dart';
+
+class SelectionScreen extends StatefulWidget {
+  static const String id = 'Selection_screen';
+  @override
+  _SelectionScreenState createState() => _SelectionScreenState();
+}
+
+class _SelectionScreenState extends State<SelectionScreen> {
+//  CheckStuff checkStuff = CheckStuff();
+  @override
+//  void initState() {
+//    super.initState();
+//    checkStuff.getList();
+//  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,6 +60,8 @@ class SelectionScreen extends StatelessWidget {
                         emoticon: '🍿',
                         backgroundColor: kMoviesBackgroundColor,
                         textColor: kMoviesTextColor,
+                        screen: MovieScreen.id,
+//                        screen: 'TableLayout',
                       ),
                     ),
                   ),
@@ -56,6 +77,7 @@ class SelectionScreen extends StatelessWidget {
                         emoticon: '📺',
                         backgroundColor: kTVshowsBackgroundColor,
                         textColor: kTVshowsTextColor,
+                        screen: TVshowsScreen.id,
                       ),
                     ),
                   ),
@@ -73,11 +95,12 @@ class SelectionScreen extends StatelessWidget {
                       padding:
                           const EdgeInsets.fromLTRB(15.0, 15.0, 15.0, 40.0),
                       child: SelectButton(
-                          category: 'BOOKS',
-                          emoticon: '📚',
-//
-                          backgroundColor: kBooksBackgroundColor,
-                          textColor: kBooksTextColor),
+                        category: 'BOOKS',
+                        emoticon: '📚',
+                        backgroundColor: kBooksBackgroundColor,
+                        textColor: kBooksTextColor,
+                        screen: BooksScreen.id,
+                      ),
                     ),
                   ),
 //                    SizedBox(
@@ -92,6 +115,7 @@ class SelectionScreen extends StatelessWidget {
                         emoticon: '🎲',
                         backgroundColor: kGamesBackgroundColor,
                         textColor: kGamesTextColor,
+                        screen: GamesScreen.id,
                       ),
                     ),
                   ),

@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 const Color kMoviesBackgroundColor = Color(0xff180201);
 const Color kMoviesTextColor = Color(0xff9A2812);
@@ -11,3 +12,10 @@ const Color kBooksTextColor = Color(0xff8F58C5);
 
 const Color kGamesBackgroundColor = Color(0xff071201);
 const Color kGamesTextColor = Color(0xff57B123);
+
+const TextStyle kHeaderTextStyle = TextStyle(
+  fontWeight: FontWeight.bold,
+  fontSize: 60.0,
+//  color: Color(0xff2E0602),
+  color: Colors.black,
+);
