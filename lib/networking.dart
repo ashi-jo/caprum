@@ -7,10 +7,12 @@ class NetworkHelper {
   final String query;
 
   Future<dynamic> getData() async {
-    http.Response response =
-        await http.get('http://192.168.1.104:5000/api?Query=$query');
+    http.Response response = await http
+        .get('http://192.168.1.104:9090/book/To%20Kill%20a%20Mockingbird');
     if (response.statusCode == 200) {
       String data = response.body;
+      print(data);
+      print(jsonDecode(data));
 
       return jsonDecode(data);
     } else {
