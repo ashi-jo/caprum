@@ -1,77 +1,78 @@
 import 'package:flutter/material.dart';
+import 'package:recommend/networking.dart';
+import 'package:recommend/TVsuggestions.dart';
 
-class TVshowsScreen extends StatelessWidget {
+class TVshowsScreen extends StatefulWidget {
   static const String id = 'TVshow_screen';
+  final tvDataa;
+  TVshowsScreen({this.tvDataa});
+
+  @override
+  _TVshowsScreenState createState() => _TVshowsScreenState();
+}
+
+class _TVshowsScreenState extends State<TVshowsScreen> {
+  NetworkHelper networkHelper = NetworkHelper();
+  var url;
+  var cast;
+  var description;
+  var title;
+  var year;
+  var genre;
+  var query = 'Friends';
+  var index = 0;
+  var tvData;
+
+  void updateUI(dynamic tvData, index) {
+    setState(() {
+      url = tvData[index]['URL'];
+      cast = tvData[index]['cast'];
+      description = tvData[index]['description'];
+      title = tvData[index]['title'];
+      year = tvData[index]['release_year'];
+      genre = tvData[index]['genre'];
+      print('updated');
+    });
+  }
+
+  PageController controller = PageController();
+
+  dynamic getData() async {
+    tvData = await networkHelper.getTvData(query);
+    updateUI(tvData, index);
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    if (widget.tvDataa != null) {
+      query = widget.tvDataa;
+    }
+    getData();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Container(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage('images/tvShow-background.jpg'),
-              fit: BoxFit.cover,
-            ),
-          ),
-          constraints: BoxConstraints.expand(),
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Container(
-                  color: Colors.yellow,
-                  height: 150.0,
-                  child: Text('1st'),
-                ),
-                SizedBox(
-                  height: 10.0,
-                ),
-                Container(
-                  color: Colors.yellow,
-                  height: 150.0,
-                  child: Text('2nd'),
-                ),
-                Container(
-                  color: Colors.yellow,
-                  height: 150.0,
-                  child: Text('3rd'),
-                ),
-                Container(
-                  color: Colors.yellow,
-                  height: 150.0,
-                  child: Text('4th'),
-                ),
-                Container(
-                  color: Colors.yellow,
-                  height: 150.0,
-                  child: Text('5th'),
-                ),
-                Container(
-                  color: Colors.yellow,
-                  height: 150.0,
-                  child: Text('6th'),
-                ),
-                Container(
-                  color: Colors.yellow,
-                  height: 150.0,
-                  child: Text('7th'),
-                ),
-                Container(
-                  color: Colors.yellow,
-                  height: 150.0,
-                  child: Text('8th'),
-                ),
-                Container(
-                  color: Colors.yellow,
-                  height: 150.0,
-                  child: Text('9th'),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
+      body: PageView.builder(
+          controller: controller,
+          onPageChanged: (index) {
+            index = index + 1;
+            updateUI(tvData, index);
+          },
+          itemBuilder: (context, index) {
+            return TvSuggestion(
+              url: url,
+              title: title,
+              genre: genre,
+              year: year,
+              description: description,
+              cast: cast,
+            );
+          }),
     );
   }
 }
+
+//TVsuggestion(url: url, title: title, genre: genre, year: year, description: description, cast: cast),

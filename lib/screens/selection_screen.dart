@@ -28,7 +28,8 @@ class _SelectionScreenState extends State<SelectionScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Recommender',
+          'CAPRUM',
+          textAlign: TextAlign.center,
           style: TextStyle(
             color: Color(0xffF7F3D4),
             fontSize: 25.0,

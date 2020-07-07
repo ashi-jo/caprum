@@ -15,7 +15,8 @@ const Color kGamesTextColor = Color(0xff57B123);
 
 const TextStyle kHeaderTextStyle = TextStyle(
   fontWeight: FontWeight.bold,
-  fontSize: 60.0,
+  fontFamily: 'Pacifico',
+  fontSize: 40.0,
 //  color: Color(0xff2E0602),
   color: Colors.black,
 );

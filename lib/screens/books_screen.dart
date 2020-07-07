@@ -3,95 +3,210 @@ import 'package:flutter/material.dart';
 import 'package:recommend/networking.dart';
 import 'package:page_turn/page_turn.dart';
 import 'package:like_button/like_button.dart';
+import 'package:recommend/bookSuggestion.dart';
 
 class BooksScreen extends StatefulWidget {
   static const String id = 'Books_screen';
+  final data;
+  BooksScreen({this.data});
+
   @override
   _BooksScreenState createState() => _BooksScreenState();
 }
 
 class _BooksScreenState extends State<BooksScreen> {
-  final _controller = GlobalKey<PageTurnState>();
+  NetworkHelper networkHelper = NetworkHelper();
+  var author;
+  var rating;
+  var publicationYear;
+  var title;
+  var query = '1984';
+  var index = 0;
+  var bookData;
 
-  List<String> list = ['Page1', 'Page2', 'Page3', 'Page4', 'Page5'];
-  var colour = Colors.grey;
+  void updateUI(dynamic bookData, index) {
+    setState(() {
+      author = bookData[index]['authors'];
+      rating = bookData[index]['average_rating'];
+      publicationYear = bookData[index]['original_publication_year'];
+      title = bookData[index]['title'];
+      print('updated');
+    });
+  }
 
-  Future<bool> onLikeButtonTapped(bool isLiked) async {
-    /// send your request here
-    // final bool success= await sendRequest();
+  PageController controller = PageController();
 
-    /// if failed, you can do nothing
-    // return success? !isLiked:isLiked;
-    isLiked = true;
-    print('liked');
+  dynamic getBookData() async {
+    bookData = await networkHelper.getBookData(query);
+    updateUI(bookData, index);
+  }
 
-    return isLiked;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    if (widget.data != null) {
+      query = widget.data;
+    }
+    getBookData();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: PageTurn(
-          key: _controller,
-          backgroundColor: Colors.white,
-          showDragCutoff: false,
-          lastPage: Container(
-            child: Center(
-              child: Text('Last Page!'),
-            ),
-          ),
-          children: <Widget>[
-            for (var i = 0; i < list.length; i++)
-              Stack(
-                children: <Widget>[
-//                      Image.asset('images/movie1.jpg'),
-                  Container(
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage('images/books-background.jpg'),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    constraints: BoxConstraints.expand(),
-                  ),
-                  Center(
-                    child: Text(
-                      list[i],
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 30.0,
-                      ),
-                    ),
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      FloatingActionButton(
-                        backgroundColor: Colors.deepPurple,
-                        child: Icon(
-                          Icons.favorite,
-                          size: 50.0,
-                          color: colour,
-                        ),
-                        onPressed: () {
-                          setState(() {
-                            colour = Colors.red;
-                          });
-                          print('liked');
-                        },
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-          ],
-        ),
-      ),
+      body: PageView.builder(
+          controller: controller,
+          onPageChanged: (index) {
+            index = index + 1;
+            updateUI(bookData, index);
+          },
+          itemBuilder: (context, index) {
+            return BookSuggestion(
+              title: title,
+              author: author,
+              publicationYear: publicationYear,
+              rating: rating,
+//              onLikeButtonTapped: onLikeButtonTapped(isLiked),
+            );
+          }),
     );
   }
 }
 
-// D8:D0:90:4F:F9:EA
+//PageView(
+//onPageChanged: (index) {
+//index = index + 1;
+//updateUI(bookData, index);
+//},
+//children: <Widget>[
+//BookSuggestion(
+//title: title,
+//author: author,
+//publicationYear: publicationYear,
+//rating: rating,
+//),
+//BookSuggestion(
+//title: title,
+//author: author,
+//publicationYear: publicationYear,
+//rating: rating,
+//),
+//BookSuggestion(
+//title: title,
+//author: author,
+//publicationYear: publicationYear,
+//rating: rating,
+//),
+//BookSuggestion(
+//title: title,
+//author: author,
+//publicationYear: publicationYear,
+//rating: rating,
+//),
+//BookSuggestion(
+//title: title,
+//author: author,
+//publicationYear: publicationYear,
+//rating: rating,
+//),
+//BookSuggestion(
+//title: title,
+//author: author,
+//publicationYear: publicationYear,
+//rating: rating,
+//),
+//BookSuggestion(
+//title: title,
+//author: author,
+//publicationYear: publicationYear,
+//rating: rating,
+//),
+//BookSuggestion(
+//title: title,
+//author: author,
+//publicationYear: publicationYear,
+//rating: rating,
+//),
+//BookSuggestion(
+//title: title,
+//author: author,
+//publicationYear: publicationYear,
+//rating: rating,
+//),
+//BookSuggestion(
+//title: title,
+//author: author,
+//publicationYear: publicationYear,
+//rating: rating,
+//),
+//BookSuggestion(
+//title: title,
+//author: author,
+//publicationYear: publicationYear,
+//rating: rating,
+//),
+//BookSuggestion(
+//title: title,
+//author: author,
+//publicationYear: publicationYear,
+//rating: rating,
+//),
+//BookSuggestion(
+//title: title,
+//author: author,
+//publicationYear: publicationYear,
+//rating: rating,
+//),
+//BookSuggestion(
+//title: title,
+//author: author,
+//publicationYear: publicationYear,
+//rating: rating,
+//),
+//BookSuggestion(
+//title: title,
+//author: author,
+//publicationYear: publicationYear,
+//rating: rating,
+//),
+//],
+//),
+
+//PageView.builder(
+//controller: controller,
+//itemBuilder: (context, index) {
+//updateUI(bookData, index);
+//return Container(
+//child: Center(
+//child: Text(
+//title,
+//textAlign: TextAlign.center,
+//),
+//),
+//);
+//}),
+
+//Column(
+//crossAxisAlignment: CrossAxisAlignment.stretch,
+//children: <Widget>[
+//Expanded(
+//child: Center(
+//child: Text(
+//title != null ? title : "ain't got no title",
+//textAlign: TextAlign.center,
+//),
+//),
+//),
+//Expanded(
+//child: RaisedButton(
+//onPressed: () async {
+//print('yay');
+//var booksData = await networkHelper.getData(query);
+//index = index + 1;
+//print(index);
+//updateUI(booksData, index);
+//},
+//),
+//)
+//],
+//),
