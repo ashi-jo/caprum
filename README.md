@@ -1,12 +1,4 @@
-# recommend
-
-A new Flutter application.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
+Ever wasted the free hour you have deciding what to watch or what to read or to just play some random game? Not anymore. With caprum discover amazing content especially catered for you based on what you like.
 
 - [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
 - [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
