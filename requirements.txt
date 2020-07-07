@@ -1,0 +1,9 @@
+##TO RUN THE APP
+Clone this repositary on your local computer
+pip install flask
+pip install pandas
+run server.py to enable local host
+Import github projects into Android Studio
+   File->New->Project from version control -> Github.
+   paste https://github.com/ashi-jo/caprum
+Run the file on android studio 
